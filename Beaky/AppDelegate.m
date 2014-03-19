@@ -54,6 +54,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    locationDetermined = NO;
     if(self.locationManager)
         [self.locationManager startUpdatingLocation];
 }
@@ -91,16 +92,24 @@
 // LocationManager Delegates
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     
-    // Save our location
-    PFGeoPoint *point = [[PFGeoPoint alloc] init];
-    point.longitude = newLocation.coordinate.longitude;
-    point.latitude = newLocation.coordinate.latitude;
-    PFUser *userObject = [PFUser user];
-    [userObject setObjectId:[PFUser currentUser].objectId];
-    [userObject setObject:point forKey:@"location"];
-    [userObject saveInBackground];
+    if([PFUser currentUser] && !locationDetermined) {
+        locationDetermined = YES;
+        
+        // Save our location
+        PFGeoPoint *point = [[PFGeoPoint alloc] init];
+        point.longitude = newLocation.coordinate.longitude;
+        point.latitude = newLocation.coordinate.latitude;
+        PFUser *userObject = [PFUser user];
+        [userObject setObjectId:[PFUser currentUser].objectId];
+        [userObject setObject:point forKey:@"location"];
+        [userObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if(error == nil)
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMyLocationUpdated object:self userInfo:nil];
+        }];
+        
+        [self.locationManager stopUpdatingLocation];
+    }
     
-    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {

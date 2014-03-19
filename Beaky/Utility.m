@@ -10,6 +10,12 @@
 
 @implementation Utility
 
++ (id)objectNotNSNull:(id)object {
+	if(object == [NSNull null])
+		return nil;
+	return object;
+}
+
 +(NSString *)getUUID {
     CFUUIDRef newUniqueId = CFUUIDCreate(kCFAllocatorDefault);
     NSString * uuidString = (__bridge_transfer NSString*)CFUUIDCreateString(kCFAllocatorDefault, newUniqueId);

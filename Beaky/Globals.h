@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 // Notifications
-#define kNotificationLoginComplete  @"NotificationLoginComplete"
+#define kNotificationLoginComplete          @"NotificationLoginComplete"
+#define kNotificationMyLocationUpdated      @"NotificationMyLocationUpdated"
 
 // Urls
 #define kUrlFacebookPicture         @"https://graph.facebook.com/%@/picture"

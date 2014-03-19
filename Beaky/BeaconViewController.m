@@ -20,11 +20,15 @@
 @synthesize statusLabel = _statusLabel;
 @synthesize transmitter = _transmitter;
 @synthesize receiver = _receiver;
+@synthesize users = _users;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginComplete) name:kNotificationLoginComplete object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startTransceiver) name:kNotificationMyLocationUpdated object:nil];
+        
+        _users = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -43,18 +47,6 @@
     [self initTransceiverView:self.view];
     tranceiverOn = YES;
     self.statusLabel.text = kTransceiverLabelOn;
-    
-    // Startup the Transmitter to broadcast our location
-    _transmitter = [[Transmitter alloc] init];
-    PFUser *user = [PFUser currentUser];
-    NSString *uuid = [user objectForKey:@"uuid"];
-    [self.transmitter start:uuid];
-    
-    _receiver = [[Receiver alloc] init];
-    
-    
-    // Retrieve all of the UUIDs in my Geolocation
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -119,6 +111,83 @@
         self.statusLabel.text = kTransceiverLabelOn;
     else
         self.statusLabel.text = kTransceiverLabelOff;
+}
+
+- (void)startTransceiver {
+    
+    // Startup the Transmitter to broadcast our location
+    _transmitter = [[Transmitter alloc] init];
+    PFUser *user = [PFUser currentUser];
+    NSString *uuid = [user objectForKey:@"uuid"];
+    [self.transmitter start:uuid];
+
+    // Setup the Receiver
+    _receiver = [[Receiver alloc] init];
+    self.receiver.delegate = self;
+    
+    // Retrieve the User object
+    PFQuery *query = [PFUser query];
+    PFUser *userObject = (PFUser *)[query getObjectWithId:user.objectId];
+    
+    // Retrieve all of the UUIDs in my Geolocation
+    PFGeoPoint *userGeoPoint = [userObject objectForKey:@"location"];
+    query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"location" nearGeoPoint:userGeoPoint];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if(error == nil) {
+            for(PFUser *user in users) {
+                // Skip myself
+                if([user.objectId isEqualToString:[PFUser currentUser].objectId])
+                    continue;
+                
+                NSString *uuid = [user objectForKey:@"uuid"];
+                
+                [self.receiver monitor:uuid];
+            }
+        }
+    }];
+}
+
+#pragma mark -
+#pragma mark ReceiverDelegate Methods
+
+- (void)beaconsFound:(NSArray *)uuids {
+    
+    if(processingBeacons)
+        return;
+    processingBeacons = YES;
+    
+    NSMutableArray *newBeacons = [[NSMutableArray alloc] init];
+    for(NSString *uuid in uuids) {
+        
+        // Did we already find this beacon?
+        BOOL found = NO;
+        for(User *user in self.users) {
+            if([user.uuid isEqualToString:uuid]) {
+                found = YES;
+                break;
+            }
+        }
+        if(! found)
+           [newBeacons addObject:uuid];
+    }
+    
+    if([newBeacons count]) {
+        PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+        [query whereKey:@"uuid" containedIn:newBeacons];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if(error == nil) {
+                for(id object in objects) {
+                    User *user = [[User alloc] init];
+                    [user assignValuesFromObject:object];
+                    
+                    [self.users addObject:user];
+                }
+                
+                processingBeacons = NO;
+            }
+        }];
+    }
 }
 
 @end

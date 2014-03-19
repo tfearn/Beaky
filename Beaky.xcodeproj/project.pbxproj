@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A82F8D4C18D27BCA0046A138 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A82F8D4B18D27BCA0046A138 /* FacebookSDK.framework */; };
+		A84F5D6418D8D1F900705C49 /* PeopleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A84F5D6318D8D1F900705C49 /* PeopleViewCell.m */; };
+		A84F5D6818D8D79B00705C49 /* PeopleViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A84F5D6718D8D79B00705C49 /* PeopleViewCell.xib */; };
+		A84F5D6A18D8D91200705C49 /* default-user.png in Resources */ = {isa = PBXBuildFile; fileRef = A84F5D6918D8D91200705C49 /* default-user.png */; };
+		A84F5D6D18D8D9C700705C49 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = A84F5D6C18D8D9C700705C49 /* User.m */; };
+		A87484C818D8FDE7000B7428 /* PeopleNearMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87484C618D8FDE6000B7428 /* PeopleNearMeViewController.m */; };
+		A87484C918D8FDE7000B7428 /* PeopleNearMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87484C718D8FDE6000B7428 /* PeopleNearMeViewController.xib */; };
 		E0A2647018D1F613003FBADF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A2646F18D1F613003FBADF /* Foundation.framework */; };
 		E0A2647218D1F613003FBADF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A2647118D1F613003FBADF /* CoreGraphics.framework */; };
 		E0A2647418D1F613003FBADF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A2647318D1F613003FBADF /* UIKit.framework */; };
@@ -37,7 +44,6 @@
 		E0A264C618D1FD95003FBADF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A264C518D1FD95003FBADF /* Security.framework */; };
 		E0A264C818D1FDA0003FBADF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A264C718D1FDA0003FBADF /* StoreKit.framework */; };
 		E0A264CA18D1FDA8003FBADF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A264C918D1FDA8003FBADF /* SystemConfiguration.framework */; };
-		E0A264CC18D1FF88003FBADF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A264CB18D1FF88003FBADF /* FacebookSDK.framework */; };
 		E0A264EA18D207CA003FBADF /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A264D118D207CA003FBADF /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E0A264EB18D207CA003FBADF /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A264D418D207CA003FBADF /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E0A264EC18D207CA003FBADF /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A264D618D207CA003FBADF /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -68,6 +74,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A82F8D4B18D27BCA0046A138 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		A84F5D6218D8D1F900705C49 /* PeopleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleViewCell.h; sourceTree = "<group>"; };
+		A84F5D6318D8D1F900705C49 /* PeopleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeopleViewCell.m; sourceTree = "<group>"; };
+		A84F5D6718D8D79B00705C49 /* PeopleViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PeopleViewCell.xib; sourceTree = "<group>"; };
+		A84F5D6918D8D91200705C49 /* default-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "default-user.png"; path = "Images.xcassets/default-user.png"; sourceTree = "<group>"; };
+		A84F5D6B18D8D9C700705C49 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		A84F5D6C18D8D9C700705C49 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		A87484C518D8FDE6000B7428 /* PeopleNearMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleNearMeViewController.h; sourceTree = "<group>"; };
+		A87484C618D8FDE6000B7428 /* PeopleNearMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeopleNearMeViewController.m; sourceTree = "<group>"; };
+		A87484C718D8FDE6000B7428 /* PeopleNearMeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PeopleNearMeViewController.xib; sourceTree = "<group>"; };
 		E0A2646C18D1F613003FBADF /* Beaky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beaky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0A2646F18D1F613003FBADF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E0A2647118D1F613003FBADF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -107,7 +123,6 @@
 		E0A264C518D1FD95003FBADF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E0A264C718D1FDA0003FBADF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E0A264C918D1FDA8003FBADF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		E0A264CB18D1FF88003FBADF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E0A264D018D207CA003FBADF /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		E0A264D118D207CA003FBADF /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		E0A264D218D207CA003FBADF /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -160,10 +175,10 @@
 				E0A2647218D1F613003FBADF /* CoreGraphics.framework in Frameworks */,
 				E0A264BC18D1FD5C003FBADF /* CFNetwork.framework in Frameworks */,
 				E0A264BA18D1FD51003FBADF /* AudioToolbox.framework in Frameworks */,
+				A82F8D4C18D27BCA0046A138 /* FacebookSDK.framework in Frameworks */,
 				E0A2647418D1F613003FBADF /* UIKit.framework in Frameworks */,
 				E0A264AA18D1FA07003FBADF /* Parse.framework in Frameworks */,
 				E0A2647018D1F613003FBADF /* Foundation.framework in Frameworks */,
-				E0A264CC18D1FF88003FBADF /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,8 +217,8 @@
 		E0A2646E18D1F613003FBADF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A82F8D4B18D27BCA0046A138 /* FacebookSDK.framework */,
 				E0A264FC18D23172003FBADF /* CoreBluetooth.framework */,
-				E0A264CB18D1FF88003FBADF /* FacebookSDK.framework */,
 				E0A264C918D1FDA8003FBADF /* SystemConfiguration.framework */,
 				E0A264C718D1FDA0003FBADF /* StoreKit.framework */,
 				E0A264C518D1FD95003FBADF /* Security.framework */,
@@ -232,6 +247,7 @@
 				E0A2647E18D1F613003FBADF /* AppDelegate.h */,
 				E0A2647F18D1F613003FBADF /* AppDelegate.m */,
 				E0A2648118D1F613003FBADF /* Images.xcassets */,
+				A84F5D6918D8D91200705C49 /* default-user.png */,
 				E0A264FA18D22305003FBADF /* blue-circle.jpg */,
 				E0A264A518D1F993003FBADF /* FacebookLogin.png */,
 				E0A264A618D1F993003FBADF /* FacebookLogin@2x.png */,
@@ -278,6 +294,8 @@
 				E0A2650218D231E0003FBADF /* Transmitter.m */,
 				E0A2650418D23A62003FBADF /* Receiver.h */,
 				E0A2650518D23A62003FBADF /* Receiver.m */,
+				A84F5D6B18D8D9C700705C49 /* User.h */,
+				A84F5D6C18D8D9C700705C49 /* User.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -392,6 +410,12 @@
 				E0A264F418D20A87003FBADF /* BeaconViewController.h */,
 				E0A264F518D20A87003FBADF /* BeaconViewController.m */,
 				E0A264F618D20A87003FBADF /* BeaconViewController.xib */,
+				A87484C518D8FDE6000B7428 /* PeopleNearMeViewController.h */,
+				A87484C618D8FDE6000B7428 /* PeopleNearMeViewController.m */,
+				A87484C718D8FDE6000B7428 /* PeopleNearMeViewController.xib */,
+				A84F5D6218D8D1F900705C49 /* PeopleViewCell.h */,
+				A84F5D6318D8D1F900705C49 /* PeopleViewCell.m */,
+				A84F5D6718D8D79B00705C49 /* PeopleViewCell.xib */,
 			);
 			name = Beacon;
 			sourceTree = "<group>";
@@ -472,8 +496,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0A264F818D20A87003FBADF /* BeaconViewController.xib in Resources */,
+				A84F5D6818D8D79B00705C49 /* PeopleViewCell.xib in Resources */,
 				E0A2647A18D1F613003FBADF /* InfoPlist.strings in Resources */,
 				E0A264A418D1F938003FBADF /* StartupViewController.xib in Resources */,
+				A84F5D6A18D8D91200705C49 /* default-user.png in Resources */,
+				A87484C918D8FDE7000B7428 /* PeopleNearMeViewController.xib in Resources */,
 				E0A2648218D1F613003FBADF /* Images.xcassets in Resources */,
 				E0A264A718D1F993003FBADF /* FacebookLogin.png in Resources */,
 				E0A264FB18D22305003FBADF /* blue-circle.jpg in Resources */,
@@ -499,16 +526,19 @@
 			files = (
 				E0A264AD18D1FA67003FBADF /* Globals.m in Sources */,
 				E0A264EA18D207CA003FBADF /* ASIAuthenticationDialog.m in Sources */,
+				A87484C818D8FDE7000B7428 /* PeopleNearMeViewController.m in Sources */,
 				E0A264B018D1FAC7003FBADF /* BaseViewController.m in Sources */,
 				E0A264EB18D207CA003FBADF /* ASIDataCompressor.m in Sources */,
 				E0A2650018D231A0003FBADF /* Utility.m in Sources */,
 				E0A2648018D1F613003FBADF /* AppDelegate.m in Sources */,
+				A84F5D6D18D8D9C700705C49 /* User.m in Sources */,
 				E0A2647C18D1F613003FBADF /* main.m in Sources */,
 				E0A264F018D207CA003FBADF /* ASIInputStream.m in Sources */,
 				E0A264EF18D207CA003FBADF /* ASIHTTPRequest.m in Sources */,
 				E0A264B618D1FB15003FBADF /* SpinnerView.m in Sources */,
 				E0A264EE18D207CA003FBADF /* ASIFormDataRequest.m in Sources */,
 				E0A264F318D207CA003FBADF /* Reachability.m in Sources */,
+				A84F5D6418D8D1F900705C49 /* PeopleViewCell.m in Sources */,
 				E0A264ED18D207CA003FBADF /* ASIDownloadCache.m in Sources */,
 				E0A264A318D1F938003FBADF /* StartupViewController.m in Sources */,
 				E0A264B718D1FB15003FBADF /* WaitView.m in Sources */,
@@ -639,6 +669,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/feartod/project/Beaky,
+					/Users/tfearn/Project/Beaky,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Beaky/Beaky-Prefix.pch";
@@ -660,6 +691,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/feartod/project/Beaky,
+					/Users/tfearn/Project/Beaky,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Beaky/Beaky-Prefix.pch";
@@ -733,6 +765,7 @@
 				E0A2649A18D1F613003FBADF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E0A2649B18D1F613003FBADF /* Build configuration list for PBXNativeTarget "BeakyTests" */ = {
 			isa = XCConfigurationList;
@@ -741,6 +774,7 @@
 				E0A2649D18D1F613003FBADF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

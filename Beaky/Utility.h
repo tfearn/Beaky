@@ -10,6 +10,7 @@
 
 @interface Utility : NSObject
 
++ (id)objectNotNSNull:(id)object;
 +(NSString *)getUUID;
 
 @end

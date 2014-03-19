@@ -19,6 +19,12 @@
     
     // Initialize the Beacon Region
     self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid major:1 minor:1 identifier:@"com.idata.testregion"];
+    
+    // Get the beacon data to advertise
+    self.beaconData = [self.beaconRegion peripheralDataWithMeasuredPower:nil];
+    
+    // Start the peripheral manager
+    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil options:nil];
 }
 
 - (void)stop {

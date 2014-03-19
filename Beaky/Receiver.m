@@ -42,6 +42,7 @@
         
         // Tell location manager to start monitoring for the beacon region
         [self.locationManager startMonitoringForRegion:beaconRegion];
+        [self.locationManager startRangingBeaconsInRegion:beaconRegion];
         
         [self.beaconRegions addObject:beaconRegion];
     }
@@ -49,13 +50,14 @@
 
 -(void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
     // Beacon found!
-    
-    CLBeacon *foundBeacon = [beacons firstObject];
-    
-    // You can retrieve the beacon data from its properties
-    //NSString *uuid = foundBeacon.proximityUUID.UUIDString;
-    //NSString *major = [NSString stringWithFormat:@"%@", foundBeacon.major];
-    //NSString *minor = [NSString stringWithFormat:@"%@", foundBeacon.minor];
+
+    NSMutableArray *uuids = [[NSMutableArray alloc] init];
+    for(CLBeacon *beacon in beacons) {
+        [uuids addObject:beacon.proximityUUID.UUIDString];
+    }
+
+    if(self.delegate != nil)
+        [self.delegate beaconsFound:uuids];
 }
 
 @end
