@@ -63,8 +63,7 @@ void PeopleImageFromURL( NSURL * URL, void (^imageBlock)(UIImage * image), void 
 - (UITableViewCell *)tableView:(UITableView *)tableview cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CustomCellIdentifier = @"PeopleViewCellIdentifier";
 	
-	int row = [indexPath row];
-	User *user = [self.users objectAtIndex:row];
+	User *user = [self.users objectAtIndex:[indexPath row]];
     
     PeopleViewCell *cell = (PeopleViewCell *)[tableview dequeueReusableCellWithIdentifier: CustomCellIdentifier];
     if (cell == nil)  {
