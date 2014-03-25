@@ -8,16 +8,20 @@
 
 #import "BeaconViewController.h"
 
-#define kTransceiverLabelOn     @"  Listening..."
-#define kTransceiverLabelOff    @"Touch to listen"
+#define kListeningLabelOn       @"  Listening..."
+#define kListeningLabelOff      @"Touch to listen"
+#define kTransmittingLabelOn    @"  Transmitting..."
+#define kTransmittingLabelOff   @"Touch to Transmit"
 
 @interface BeaconViewController ()
 
 @end
 
 @implementation BeaconViewController
-@synthesize animatedView = _animatedView;
-@synthesize statusLabel = _statusLabel;
+@synthesize animatedListeningView = _animatedListeningView;
+@synthesize animatedTransmittingView = _animatedTransmittingView;
+@synthesize listeningLabel = _listeningLabel;
+@synthesize transmittingLabel = _transmittingLabel;
 @synthesize transmitter = _transmitter;
 @synthesize receiver = _receiver;
 @synthesize users = _users;
@@ -44,9 +48,11 @@
         [self.navigationController presentViewController:startupViewController animated:YES completion:nil];
     }
     
-    [self initTransceiverView:self.view];
-    tranceiverOn = YES;
-    self.statusLabel.text = kTransceiverLabelOn;
+    [self initAnimatedViews:self.view];
+    listeningOn = YES;
+    transmittingOn = YES;
+    self.listeningLabel.text = kListeningLabelOn;
+    self.transmittingLabel.text = kTransmittingLabelOn;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,18 +60,20 @@
 }
 
 - (void)applicationWillEnterForeground {
-    self.animatedView = nil;
+    self.animatedListeningView = nil;
+    self.animatedTransmittingView = nil;
     
-    [self initTransceiverView:self.view];
+    [self initAnimatedViews:self.view];
 }
 
 - (void)loginComplete {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)initTransceiverView:(UIView *)parentView {
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(112, 100, 100, 100)];
+- (void)initAnimatedViews:(UIView *)parentView {
+
+    // Setup the listening view
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(112, 30, 100, 100)];
     view.backgroundColor = [UIColor greenColor];
     view.layer.cornerRadius = 50;
     
@@ -80,18 +88,35 @@
     scaleAnimation.toValue = [NSNumber numberWithFloat:1.1];
     
     [view.layer addAnimation:scaleAnimation forKey:@"scale"];
-    self.animatedView = view;
+    self.animatedListeningView = view;
+    
+    
+    // Setup the transmitting view
+    view = [[UIView alloc] initWithFrame:CGRectMake(112, 150, 100, 100)];
+    view.backgroundColor = [UIColor blueColor];
+    view.layer.cornerRadius = 50;
+    
+    [parentView addSubview:view];
+    [parentView sendSubviewToBack:view];
+    
+    scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.duration = 0.45;
+    scaleAnimation.repeatCount = HUGE_VAL;
+    scaleAnimation.autoreverses = YES;
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.2];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.1];
+    
+    [view.layer addAnimation:scaleAnimation forKey:@"scale"];
+    self.animatedTransmittingView = view;
 }
 
--(void)pauseAnimation {
-    CALayer *layer = self.animatedView.layer;
+-(void)pauseAnimation:(CALayer *)layer {
     CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
     layer.speed = 0.0;
     layer.timeOffset = pausedTime;
 }
 
--(void)resumeAnimation {
-    CALayer *layer = self.animatedView.layer;
+-(void)resumeAnimation:(CALayer *)layer {
     CFTimeInterval pausedTime = [layer timeOffset];
     layer.speed = 1.0;
     layer.timeOffset = 0.0;
@@ -100,17 +125,30 @@
     layer.beginTime = timeSincePause;
 }
 
-- (IBAction)touchAnimatedButton:(id)sender {
-    if(tranceiverOn)
-        [self pauseAnimation];
+- (IBAction)touchAnimatedListeningButton:(id)sender {
+    if(listeningOn)
+        [self pauseAnimation:self.animatedListeningView.layer];
     else
-        [self resumeAnimation];
-    tranceiverOn = !tranceiverOn;
+        [self resumeAnimation:self.animatedListeningView.layer];
+    listeningOn = !listeningOn;
     
-    if(tranceiverOn)
-        self.statusLabel.text = kTransceiverLabelOn;
+    if(listeningOn)
+        self.listeningLabel.text = kListeningLabelOn;
     else
-        self.statusLabel.text = kTransceiverLabelOff;
+        self.listeningLabel.text = kListeningLabelOff;
+}
+
+- (IBAction)touchAnimatedTransmittingButton:(id)sender {
+    if(transmittingOn)
+        [self pauseAnimation:self.animatedTransmittingView.layer];
+    else
+        [self resumeAnimation:self.animatedTransmittingView.layer];
+    transmittingOn = !transmittingOn;
+    
+    if(transmittingOn)
+        self.transmittingLabel.text = kTransmittingLabelOn;
+    else
+        self.transmittingLabel.text = kTransmittingLabelOff;
 }
 
 - (void)startTransceiver {

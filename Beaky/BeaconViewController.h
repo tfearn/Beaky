@@ -15,17 +15,22 @@
 #import "User.h"
 
 @interface BeaconViewController : BaseViewController <ReceiverDelegate> {
-    UIView *_animatedView;
-    IBOutlet UILabel *_statusLabel;
+    UIView *_animatedListeningView;
+    UIView *_animatedTransmittingView;
+    IBOutlet UILabel *_listeningLabel;
+    IBOutlet UILabel *_transmittingLabel;
     Transmitter *_transmitter;
     Receiver *_receiver;
     NSMutableArray *_users;
     
-    BOOL tranceiverOn;
+    BOOL listeningOn;
+    BOOL transmittingOn;
     BOOL processingBeacons;
 }
-@property (strong, nonatomic) UIView *animatedView;
-@property (strong, nonatomic) UILabel *statusLabel;
+@property (strong, nonatomic) UIView *animatedListeningView;
+@property (strong, nonatomic) UIView *animatedTransmittingView;
+@property (strong, nonatomic) UILabel *listeningLabel;
+@property (strong, nonatomic) UILabel *transmittingLabel;
 @property (strong, nonatomic) Transmitter *transmitter;
 @property (strong, nonatomic) Receiver *receiver;
 @property (strong, nonatomic) NSMutableArray *users;
