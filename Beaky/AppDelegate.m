@@ -76,12 +76,14 @@
 
 - (void)customizeAppearance {
     
+    // Status bar
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    // Customize the title text for *all* UINavigationBars
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           [UIColor blackColor], NSForegroundColorAttributeName,
                           [UIFont fontWithName:@"AvenirNext-Regular" size:0.0], NSFontAttributeName,
                           nil];
-    
-    // Customize the title text for *all* UINavigationBars
     [[UINavigationBar appearance] setTitleTextAttributes:dict];
     
     // Remove the drop shadow on all UINavigationBars

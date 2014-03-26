@@ -73,7 +73,7 @@
 - (void)initAnimatedViews:(UIView *)parentView {
 
     // Setup the listening view
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(112, 30, 100, 100)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(112, 70, 100, 100)];
     view.backgroundColor = [UIColor greenColor];
     view.layer.cornerRadius = 50;
     
@@ -84,15 +84,15 @@
     scaleAnimation.duration = 0.5;
     scaleAnimation.repeatCount = HUGE_VAL;
     scaleAnimation.autoreverses = YES;
-    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.2];
-    scaleAnimation.toValue = [NSNumber numberWithFloat:1.1];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.4];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.3];
     
     [view.layer addAnimation:scaleAnimation forKey:@"scale"];
     self.animatedListeningView = view;
     
     
     // Setup the transmitting view
-    view = [[UIView alloc] initWithFrame:CGRectMake(112, 150, 100, 100)];
+    view = [[UIView alloc] initWithFrame:CGRectMake(112, 230, 100, 100)];
     view.backgroundColor = [UIColor blueColor];
     view.layer.cornerRadius = 50;
     
@@ -103,8 +103,8 @@
     scaleAnimation.duration = 0.45;
     scaleAnimation.repeatCount = HUGE_VAL;
     scaleAnimation.autoreverses = YES;
-    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.2];
-    scaleAnimation.toValue = [NSNumber numberWithFloat:1.1];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.4];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.3];
     
     [view.layer addAnimation:scaleAnimation forKey:@"scale"];
     self.animatedTransmittingView = view;
