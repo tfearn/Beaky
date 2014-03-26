@@ -28,6 +28,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"People Near";
+    
+    // Close button
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(closeButtonPressed:)];
+    self.navigationItem.leftBarButtonItem = backButton;
+}
+
+- (IBAction)closeButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 void PeopleImageFromURL( NSURL * URL, void (^imageBlock)(UIImage * image), void (^errorBlock)(void) )
@@ -82,7 +91,7 @@ void PeopleImageFromURL( NSURL * URL, void (^imageBlock)(UIImage * image), void 
             cell.userImageView.image = user.image;
         }
         else {
-            NSURL *url = [NSURL URLWithString:user.imageUrl];
+            NSURL *url = user.imageUrl;
             PeopleImageFromURL(url, ^(UIImage *image) {
                 cell.userImageView.image = image;
                 user.image = image;

@@ -8,10 +8,8 @@
 
 #import "BeaconViewController.h"
 
-#define kListeningLabelOn       @"  Listening..."
-#define kListeningLabelOff      @"Touch to listen"
-#define kTransmittingLabelOn    @"  Transmitting..."
-#define kTransmittingLabelOff   @"Touch to Transmit"
+#define kListeningLabelOn       @" Listening for beacons..."
+#define kListeningLabelOff      @"Touch to Listen"
 
 @interface BeaconViewController ()
 
@@ -19,9 +17,8 @@
 
 @implementation BeaconViewController
 @synthesize animatedListeningView = _animatedListeningView;
-@synthesize animatedTransmittingView = _animatedTransmittingView;
 @synthesize listeningLabel = _listeningLabel;
-@synthesize transmittingLabel = _transmittingLabel;
+@synthesize resultsLabel = _resultsLabel;
 @synthesize transmitter = _transmitter;
 @synthesize receiver = _receiver;
 @synthesize users = _users;
@@ -48,11 +45,13 @@
         [self.navigationController presentViewController:startupViewController animated:YES completion:nil];
     }
     
-    [self initAnimatedViews:self.view];
+    // Setup the animated view
+    [self initAnimatedView:self.view];
     listeningOn = YES;
     transmittingOn = YES;
     self.listeningLabel.text = kListeningLabelOn;
-    self.transmittingLabel.text = kTransmittingLabelOn;
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector: @selector(getUUIDs) userInfo:nil repeats:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,19 +60,18 @@
 
 - (void)applicationWillEnterForeground {
     self.animatedListeningView = nil;
-    self.animatedTransmittingView = nil;
     
-    [self initAnimatedViews:self.view];
+    [self initAnimatedView:self.view];
 }
 
 - (void)loginComplete {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)initAnimatedViews:(UIView *)parentView {
+- (void)initAnimatedView:(UIView *)parentView {
 
-    // Setup the listening view
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(112, 70, 100, 100)];
+    // Setup the transmitting view
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(112, 140, 100, 100)];
     view.backgroundColor = [UIColor greenColor];
     view.layer.cornerRadius = 50;
     
@@ -81,33 +79,14 @@
     [parentView sendSubviewToBack:view];
     
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    scaleAnimation.duration = 0.5;
-    scaleAnimation.repeatCount = HUGE_VAL;
-    scaleAnimation.autoreverses = YES;
-    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.4];
-    scaleAnimation.toValue = [NSNumber numberWithFloat:1.3];
-    
-    [view.layer addAnimation:scaleAnimation forKey:@"scale"];
-    self.animatedListeningView = view;
-    
-    
-    // Setup the transmitting view
-    view = [[UIView alloc] initWithFrame:CGRectMake(112, 230, 100, 100)];
-    view.backgroundColor = [UIColor blueColor];
-    view.layer.cornerRadius = 50;
-    
-    [parentView addSubview:view];
-    [parentView sendSubviewToBack:view];
-    
-    scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     scaleAnimation.duration = 0.45;
     scaleAnimation.repeatCount = HUGE_VAL;
     scaleAnimation.autoreverses = YES;
-    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.4];
-    scaleAnimation.toValue = [NSNumber numberWithFloat:1.3];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.1];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
     
     [view.layer addAnimation:scaleAnimation forKey:@"scale"];
-    self.animatedTransmittingView = view;
+    self.animatedListeningView = view;
 }
 
 -(void)pauseAnimation:(CALayer *)layer {
@@ -126,29 +105,25 @@
 }
 
 - (IBAction)touchAnimatedListeningButton:(id)sender {
-    if(listeningOn)
+    if(transmittingOn)
         [self pauseAnimation:self.animatedListeningView.layer];
     else
         [self resumeAnimation:self.animatedListeningView.layer];
-    listeningOn = !listeningOn;
+    transmittingOn = !transmittingOn;
     
-    if(listeningOn)
+    if(transmittingOn)
         self.listeningLabel.text = kListeningLabelOn;
     else
         self.listeningLabel.text = kListeningLabelOff;
 }
 
-- (IBAction)touchAnimatedTransmittingButton:(id)sender {
-    if(transmittingOn)
-        [self pauseAnimation:self.animatedTransmittingView.layer];
-    else
-        [self resumeAnimation:self.animatedTransmittingView.layer];
-    transmittingOn = !transmittingOn;
-    
-    if(transmittingOn)
-        self.transmittingLabel.text = kTransmittingLabelOn;
-    else
-        self.transmittingLabel.text = kTransmittingLabelOff;
+- (IBAction)touchFoundButton:(id)sender {
+    if([self.users count] > 0) {
+        PeopleNearMeViewController *peopleNearMeViewController = [[PeopleNearMeViewController alloc] initWithNibName:@"PeopleNearMeViewController" bundle:nil];
+        peopleNearMeViewController.users = self.users;
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:peopleNearMeViewController];
+        [self presentViewController:navController animated:YES completion:nil];
+    }
 }
 
 - (void)startTransceiver {
@@ -162,15 +137,28 @@
     // Setup the Receiver
     _receiver = [[Receiver alloc] init];
     self.receiver.delegate = self;
+}
+
+- (IBAction)getUUIDs {
+    
+    // Is the receiver inititalized?
+    if(! self.receiver)
+        return;
+    
+    // No re-entry
+    if(retrievingUUIDs)
+        return;
+    retrievingUUIDs = YES;
     
     // Retrieve the User object
     PFQuery *query = [PFUser query];
-    PFUser *userObject = (PFUser *)[query getObjectWithId:user.objectId];
+    PFUser *userObject = (PFUser *)[query getObjectWithId:[PFUser currentUser].objectId];
     
     // Retrieve all of the UUIDs in my Geolocation
     PFGeoPoint *userGeoPoint = [userObject objectForKey:@"location"];
     query = [PFQuery queryWithClassName:@"_User"];
-    [query whereKey:@"location" nearGeoPoint:userGeoPoint];
+    if(userGeoPoint != nil)
+        [query whereKey:@"location" nearGeoPoint:userGeoPoint];
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         if(error == nil) {
             for(PFUser *user in users) {
@@ -183,6 +171,8 @@
                 [self.receiver monitor:uuid];
             }
         }
+        
+        retrievingUUIDs = NO;
     }];
 }
 
@@ -222,9 +212,17 @@
                     [self.users addObject:user];
                 }
                 
+                if([self.users count] == 1)
+                    self.resultsLabel.text = @"Found 1 person, touch here";
+                else
+                    self.resultsLabel.text = [NSString stringWithFormat:@"Found %lu people, touch here", (unsigned long)[self.users count]];
+                
                 processingBeacons = NO;
             }
         }];
+    }
+    else {
+        processingBeacons = NO;
     }
 }
 

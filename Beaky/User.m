@@ -30,6 +30,7 @@
             self.imageUrl = [NSURL URLWithString:self.imageFile.url];
         self.userName = [Utility objectNotNSNull:[user objectForKey:@"username"]];
         self.displayName = [Utility objectNotNSNull:[user objectForKey:@"displayname"]];
+        self.uuid = [Utility objectNotNSNull:[user objectForKey:@"uuid"]];
     }
 }
 

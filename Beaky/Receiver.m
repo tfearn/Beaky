@@ -50,6 +50,8 @@
 
 -(void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
     // Beacon found!
+    if(beacons == nil || [beacons count] == 0)
+        return;
 
     NSMutableArray *uuids = [[NSMutableArray alloc] init];
     for(CLBeacon *beacon in beacons) {

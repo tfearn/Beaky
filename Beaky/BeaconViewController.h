@@ -13,12 +13,12 @@
 #import "Transmitter.h"
 #import "Receiver.h"
 #import "User.h"
+#import "PeopleNearMeViewController.h"
 
 @interface BeaconViewController : BaseViewController <ReceiverDelegate> {
     UIView *_animatedListeningView;
-    UIView *_animatedTransmittingView;
     IBOutlet UILabel *_listeningLabel;
-    IBOutlet UILabel *_transmittingLabel;
+    IBOutlet UILabel *_resultsLabel;
     Transmitter *_transmitter;
     Receiver *_receiver;
     NSMutableArray *_users;
@@ -26,11 +26,11 @@
     BOOL listeningOn;
     BOOL transmittingOn;
     BOOL processingBeacons;
+    BOOL retrievingUUIDs;
 }
 @property (strong, nonatomic) UIView *animatedListeningView;
-@property (strong, nonatomic) UIView *animatedTransmittingView;
 @property (strong, nonatomic) UILabel *listeningLabel;
-@property (strong, nonatomic) UILabel *transmittingLabel;
+@property (strong, nonatomic) UILabel *resultsLabel;
 @property (strong, nonatomic) Transmitter *transmitter;
 @property (strong, nonatomic) Receiver *receiver;
 @property (strong, nonatomic) NSMutableArray *users;

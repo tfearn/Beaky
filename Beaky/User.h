@@ -13,7 +13,7 @@
 @interface User : NSObject {
     NSString *_userId;
     PFFile *_imageFile;
-    NSString *_imageUrl;
+    NSURL *_imageUrl;
     UIImage *_image;
     NSString *_userName;
     NSString *_displayName;
@@ -23,7 +23,7 @@
 }
 @property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) PFFile *imageFile;
-@property (nonatomic, strong) NSString *imageUrl;
+@property (nonatomic, strong) NSURL *imageUrl;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *displayName;

@@ -14,6 +14,7 @@
 		A84F5D6D18D8D9C700705C49 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = A84F5D6C18D8D9C700705C49 /* User.m */; };
 		A87484C818D8FDE7000B7428 /* PeopleNearMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87484C618D8FDE6000B7428 /* PeopleNearMeViewController.m */; };
 		A87484C918D8FDE7000B7428 /* PeopleNearMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87484C718D8FDE6000B7428 /* PeopleNearMeViewController.xib */; };
+		E05EDAEA18E3206400D441D5 /* spinner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E05EDAE918E3206400D441D5 /* spinner.jpg */; };
 		E0A2647018D1F613003FBADF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A2646F18D1F613003FBADF /* Foundation.framework */; };
 		E0A2647218D1F613003FBADF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A2647118D1F613003FBADF /* CoreGraphics.framework */; };
 		E0A2647418D1F613003FBADF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A2647318D1F613003FBADF /* UIKit.framework */; };
@@ -84,6 +85,7 @@
 		A87484C518D8FDE6000B7428 /* PeopleNearMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleNearMeViewController.h; sourceTree = "<group>"; };
 		A87484C618D8FDE6000B7428 /* PeopleNearMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeopleNearMeViewController.m; sourceTree = "<group>"; };
 		A87484C718D8FDE6000B7428 /* PeopleNearMeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PeopleNearMeViewController.xib; sourceTree = "<group>"; };
+		E05EDAE918E3206400D441D5 /* spinner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = spinner.jpg; path = Images.xcassets/spinner.jpg; sourceTree = "<group>"; };
 		E0A2646C18D1F613003FBADF /* Beaky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beaky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0A2646F18D1F613003FBADF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E0A2647118D1F613003FBADF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -247,6 +249,7 @@
 				E0A2647E18D1F613003FBADF /* AppDelegate.h */,
 				E0A2647F18D1F613003FBADF /* AppDelegate.m */,
 				E0A2648118D1F613003FBADF /* Images.xcassets */,
+				E05EDAE918E3206400D441D5 /* spinner.jpg */,
 				A84F5D6918D8D91200705C49 /* default-user.png */,
 				E0A264FA18D22305003FBADF /* blue-circle.jpg */,
 				E0A264A518D1F993003FBADF /* FacebookLogin.png */,
@@ -496,6 +499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0A264F818D20A87003FBADF /* BeaconViewController.xib in Resources */,
+				E05EDAEA18E3206400D441D5 /* spinner.jpg in Resources */,
 				A84F5D6818D8D79B00705C49 /* PeopleViewCell.xib in Resources */,
 				E0A2647A18D1F613003FBADF /* InfoPlist.strings in Resources */,
 				E0A264A418D1F938003FBADF /* StartupViewController.xib in Resources */,
@@ -674,7 +678,7 @@
 				INFOPLIST_FILE = "Beaky/Beaky-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51224D64-12BA-48CD-8983-72E2595EB8C7";
+				PROVISIONING_PROFILE = "5A0C663D-387B-4FFD-9192-038C365D745C";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -696,7 +700,7 @@
 				INFOPLIST_FILE = "Beaky/Beaky-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51224D64-12BA-48CD-8983-72E2595EB8C7";
+				PROVISIONING_PROFILE = "5A0C663D-387B-4FFD-9192-038C365D745C";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
