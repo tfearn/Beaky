@@ -59,8 +59,8 @@
 }
 
 - (void)applicationWillEnterForeground {
-    self.animatedListeningView = nil;
     
+    // Re-initialize the animated view
     [self initAnimatedView:self.view];
 }
 
@@ -70,8 +70,8 @@
 
 - (void)initAnimatedView:(UIView *)parentView {
 
-    // Setup the transmitting view
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(112, 140, 100, 100)];
+    // Setup the listening view
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(112, 50, 100, 100)];
     view.backgroundColor = [UIColor greenColor];
     view.layer.cornerRadius = 50;
     
@@ -86,7 +86,27 @@
     scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
     
     [view.layer addAnimation:scaleAnimation forKey:@"scale"];
+    self.animatedListeningView = nil;
     self.animatedListeningView = view;
+    
+    // Setup the people found view
+    view = [[UIView alloc] initWithFrame:CGRectMake(112, 220, 100, 100)];
+    view.backgroundColor = [UIColor yellowColor];
+    view.layer.cornerRadius = 50;
+    
+    [parentView addSubview:view];
+    [parentView sendSubviewToBack:view];
+    
+    scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.duration = 0.45;
+    scaleAnimation.repeatCount = HUGE_VAL;
+    scaleAnimation.autoreverses = YES;
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.1];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    
+    [view.layer addAnimation:scaleAnimation forKey:@"scale"];
+    
+    [self pauseAnimation:view.layer];
 }
 
 -(void)pauseAnimation:(CALayer *)layer {
@@ -102,19 +122,6 @@
     layer.beginTime = 0.0;
     CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
     layer.beginTime = timeSincePause;
-}
-
-- (IBAction)touchAnimatedListeningButton:(id)sender {
-    if(transmittingOn)
-        [self pauseAnimation:self.animatedListeningView.layer];
-    else
-        [self resumeAnimation:self.animatedListeningView.layer];
-    transmittingOn = !transmittingOn;
-    
-    if(transmittingOn)
-        self.listeningLabel.text = kListeningLabelOn;
-    else
-        self.listeningLabel.text = kListeningLabelOff;
 }
 
 - (IBAction)touchFoundButton:(id)sender {
@@ -212,10 +219,7 @@
                     [self.users addObject:user];
                 }
                 
-                if([self.users count] == 1)
-                    self.resultsLabel.text = @"Found 1 person, touch here";
-                else
-                    self.resultsLabel.text = [NSString stringWithFormat:@"Found %lu people, touch here", (unsigned long)[self.users count]];
+                self.resultsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.users count]];
                 
                 processingBeacons = NO;
             }

@@ -41,6 +41,7 @@
         CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:realUUID identifier:@"com.idata.testregion"];
         
         // Tell location manager to start monitoring for the beacon region
+        beaconRegion.notifyEntryStateOnDisplay = YES;
         [self.locationManager startMonitoringForRegion:beaconRegion];
         [self.locationManager startRangingBeaconsInRegion:beaconRegion];
         
